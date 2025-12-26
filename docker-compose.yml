@@ -1,4 +1,18 @@
+version: "3.9"
+
 services:
+  api:
+    build: ./backend
+    container_name: rag_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/ragdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+
   db:
     image: pgvector/pgvector:pg16-trixie
     container_name: rag_pgvector
